@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Card from "../../components/Card/Card";
 import styles from "./Homepage.module.css";
+import { sortBy } from "../../utils/sortBy";
 
 const Homepage = () => {
   const [countries, setCountries] = useState([]);
-  const [filtered, setFiltered] = useState([]);
 
   useEffect(() => {
     getCountries();
@@ -16,57 +16,31 @@ const Homepage = () => {
     setCountries(data);
   };
 
-  const sortBy = (e) => {
-    const mode = e.target.value;
-    let sortedData;
-    console.log(mode);
-    switch (mode) {
-      case "population-asc":
-        
-          sortedData = [...countries].sort((a, b) => {
-            if (a.population > b.population) return 1;
-            else if (a.population < b.population) return -1;
-            else return 0;
-          })
-        
-        break;
-      case "population-desc":
-        setCountries(
-          countries.sort((a, b) => {
-            if (a.population > b.population) return -1;
-            else if (a.population < b.population) return 1;
-            else return 0;
-          })
-        );
-        break;
-      default:
-        console.log(123);
-        break;
-    }
-  };
-
   console.log(countries);
 
   return (
     <div>
       <h1>All Countries</h1>
 
-      <select onChange={sortBy}>
+      <select onChange={(e)=>sortBy(e,countries,setCountries)}>
         <option value="population-asc">
           Sortuj po liczbie ludności rosnąco
         </option>
         <option value="population-desc">
           Sortuj po liczbie ludności malejąco
         </option>
+        <option value="name-asc">
+          Sortuj po nazwie od A do Z
+        </option>
+        <option value="name-desc">
+          Sortuj po nazwie od Z do A
+        </option>
       </select>
 
       <div className={styles.wrapper}>
-
         {countries.map((item) => (
           <Card key={item.name.common} country={item} />
         ))}
-
-
       </div>
     </div>
   );

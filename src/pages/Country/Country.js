@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
+import styles from './Country.module.css';
 
 const Country = () => {
   const [current, setCurrent] = useState();
   const {name} = useParams();
-  console.log(name);
+
+
+
 
   useEffect(()=>{
      getCountryByName();
@@ -16,13 +19,21 @@ const Country = () => {
     setCurrent(data[0]);
   };
 
-  console.log(current)
-
   if(!current) return "Loading...."
 
+ const currencies = Object.entries(current.currencies).map(v => v[0]);
+ const languages = Object.keys(current.languages);
+
+ console.log(current);
+
   return (
-    <div>
+    <div className={styles.box}>
+        <img src={current.coatOfArms.svg} alt={current.name.official}/>
         <h1>{current.name.official}</h1>
+        <h3>Główna waluta {current.currencies[currencies[0]].name}</h3>
+        <h3>Główny język {current.languages[languages[0]]}</h3>
+
+        {currencies.map(val => <p>{current.currencies[val].name}</p>)}
     </div>
   )
 }
