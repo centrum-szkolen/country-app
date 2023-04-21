@@ -1,0 +1,27 @@
+.box {
+    flex-basis: 200px;
+    flex-grow:1;
+    position: relative;
+    overflow: hidden;
+}
+
+.box:hover h2 {
+    transform: translateY(0);
+}
+
+.box h2 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    color: rgb(12, 12, 12);
+    background-color: rgba(255, 255, 255, 0.734);
+    width: 100%;
+    min-height: 70px;
+    text-align: center;
+    transform: translateY(100%);
+    transition: 0.4s;
+}
+
+.box img {
+    width: 100%;
+}
